@@ -16,6 +16,11 @@ pipeline {
     }
 
     stage('package') {
+       when {
+        expression {
+        env.BRANCH_NAME == 'master'
+        }
+      }
       steps {
         echo 'generating artifacts....'
         sh 'mvn package -DskipTests'
