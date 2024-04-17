@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'maven:3.6.3-jdk-11-slim'
+    }
+
+  }
   stages {
     stage('build') {
       steps {
@@ -16,10 +21,11 @@ pipeline {
     }
 
     stage('package') {
-       when {
+      when {
         expression {
-        env.BRANCH_NAME == 'master'
+          env.BRANCH_NAME == 'master'
         }
+
       }
       steps {
         echo 'generating artifacts....'
